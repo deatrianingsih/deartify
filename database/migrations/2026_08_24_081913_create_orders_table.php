@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('reference_image', 255)->nullable();
             $table->string('recipient_name', 128);
-            $table->string('recipient_email', 20);
+            $table->string('recipient_phone', 20);
             $table->text('shipping_address');
             $table->enum('status', ['pending', 'in_progress', 'shipped', 'completed'])->default('pending');
             $table->dateTime('shipped_at')->nullable();

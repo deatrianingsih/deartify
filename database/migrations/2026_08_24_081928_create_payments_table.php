@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->decimal('amount', 10, 2);
             $table->enum('method', ['cod'])->default('cod');
-            $table->enum('status',['pending','received '])->default('pending');
+            $table->enum('status',['pending','received'])->default('pending');
             $table->dateTime('received_at')->nullable();
             $table->timestamps();
         });
