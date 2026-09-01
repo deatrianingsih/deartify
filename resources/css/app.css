@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import 'layouts.scss';
 
 @theme {
     --color-cream: #F5EAD8;

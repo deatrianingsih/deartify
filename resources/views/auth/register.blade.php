@@ -1,83 +1,66 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar - DeArtify</title>
-    <link href="https://fonts.bunny.net/css?family=playfair-display|instrument-sans" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-cream text-brown">
-     <div class="min-h-screen flex items-center justify-center px-8 py-4">
-        <div class="w-full max-w-md bg-white rounded-3xl shadow-lg overflow-hidden flex">
+@extends('layouts.app')
 
-            <div class="hidden md:flex w-1/3 bg-cream/20 items-center justify-center p-4">
-                <div class="text-center">
-                    <div class="w-20 h-20 mx-auto rounded-full bg-cream/30 flex items-center justify-center text-3xl">
-                        🎨
-                    </div>
-                    <p class="mt-3 italic text-sm" style="font-family: 'Playfair Display', serif;">DeArtify</p>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0" style="border-radius: 20px;">
+                <div class="card-body p-4">
+                    <h4 class="fw-semibold mb-1">Buat Akun Baru</h4>
+                    <p class="text-muted small mb-4">Daftar untuk mulai memesan jasa gambar</p>
+
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama Lengkap</label>
+                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="name" autofocus>
+                            @error('nama')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">No. Telepon</label>
+                            <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}">
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password-confirm" class="form-label">Konfirmasi Password</label>
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        </div>
+
+                        <button type="submit" class="btn w-100 text-white" style="background-color: #8B6F5B;">
+                            Daftar
+                        </button>
+                    </form>
+
+                    <p class="text-center small text-muted mt-4 mb-0">
+                        Sudah punya akun?
+                        <a href="{{ route('login') }}" style="color: #6B4F3F;">Login di sini</a>
+                    </p>
                 </div>
-            </div>
-
-            <div class="w-full md:w-2/3 p-6">
-                <h1 class="text-lg font-semibold mb-1">Buat Akun Baru</h1>
-                <p class="text-xs text-brown/60 mb-4">Daftar untuk mulai memesan jasa gambar</p>
-            
-                @if ($errors->any())
-                    <div class="mb-3 px-3 py-2 rounded-xl bg-red-100 text-red-700 text-xs">
-                        <ul class="list-disc pl-4">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('register') }}" class="space-y-3">
-                    @csrf
-
-                                       <div>
-                        <label class="block text-xs font-medium mb-1">Nama Lengkap</label>
-                        <input type="text" name="nama" value="{{ old('nama') }}" required autofocus
-                        class="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-coffee">
-                    </div>
-                        
-                    <div>
-                        <label class="block text-xs font-medium mb-1">Email</label>
-                        <input type="email" name="email" value="{{ old('email') }}" required 
-                        class="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-coffee">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium mb-1">No. Telepon</label>
-                        <input type="text" name="phone" value="{{ old('phone') }}" 
-                        class="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-coffee">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium mb-1">Password</label>
-                        <input type="password" name="password" required 
-                        class="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-coffee">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium mb-1">Konfirmasi Password</label>
-                        <input type="password" name="password_confirmation" required 
-                        class="w-full rounded-lg border border-gray-200 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-coffee">
-                    </div>
-
-                    <button type="submit" class="w-full bg-coffee hover:bg-coffee-dark text-white font-medium rounded-lg py-2 transition text-sm">
-                        Daftar
-                    </button>
-                </form>
-
-                <p class="text-xs text-center mt-4 text-brown/60">
-                Sudah punya akun?
-                <a href="{{ route('login') }}" class="text-coffee-dark font-medium hover:underline">Login disini</a>
-            </p>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+@endsection
