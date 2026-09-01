@@ -9,7 +9,7 @@
 @endphp
 
 @foreach ($links as $link)
-<a href="{{ route($link['route']) }}" class="blocl px-4 py-2 rounded-lg text-sm font-medium {{ request()->routeIs($link['route']) ? 'bg-peach text-white' : 'hover:bg-cream text-brown'  }}">
-    {{ $link['label'] }}
-</a>
+    <a href="{{ route($link['route']) }}" class="nav-link {{ request()->routeIs($link['route']) ? 'active' : '' }}">
+        {{ $link['label'] }}
+    </a>
 @endforeach
