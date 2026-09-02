@@ -21,7 +21,7 @@
             <tbody>
                 @forelse ($servicePrices as $servicePrice)
                 <tr>
-                    <td class="px-4 py-3 fw-medium">{{ $servicePrice->service_name }}</td>
+                    <td class="px-4 py-3 fw-medium">{{ $servicePrice->name }}</td>
                     <td class="px-4 py-3 text-muted">{{ $servicePrice->description }}</td>
                     <td class="px-4 py-3">Rp {{ number_format($servicePrice->price, 0, ',', '.') }}</td>
                     <td class="px-4 py-3">

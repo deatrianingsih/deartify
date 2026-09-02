@@ -53,12 +53,20 @@ class OrderController extends Controller
             $validated['reference_image'] = $request->file('reference_image')->store('references', 'public');
         }
 
-        Order::create([
+        $order = Order::create([
             ...$validated,
             'user_id' => auth()->id(),
             'status' => 'pending',
             'total_price' => $servicePrice->price,
         ]);
+
+        \App\Models\Payment::create([
+        'order_id' => $order->id,
+        'user_id' => auth()->id(),
+        'amount' => $order->total_price,
+        'method' => 'cod',
+        'status' => 'pending',
+    ]);
 
         return redirect()->route('orders.index')->with('success', 'Order created successfully.');
     }

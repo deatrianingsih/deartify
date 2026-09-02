@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
-<div class="container">
-    <h4 class="mb-3">Ubah Status Pesanan #{{ $order->id }}</h4>
+<h4 class="fw-semibold mb-4">Ubah Status Pesanan #{{ $order->id }}</h4>
 
+<div class="card border-0 shadow-sm p-4" style="border-radius: 16px; max-width: 500px;">
     <form action="{{ route('orders.update', $order) }}" method="POST">
         @csrf
         @method('PUT')
@@ -17,8 +17,8 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update Status</button>
-        <a href="{{ route('orders.index') }}" class="btn btn-secondary">Batal</a>
+        <button type="submit" class="btn text-white" style="background-color: #8B6F5B;">Update Status</button>
+        <a href="{{ route('orders.index') }}" class="btn btn-outline-secondary">Batal</a>
     </form>
 </div>
 @endsection
