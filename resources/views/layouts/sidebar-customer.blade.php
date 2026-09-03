@@ -4,6 +4,7 @@
         ['label' => 'Layanan & Harga', 'route' => 'service_prices.index'],
         ['label' => 'Pesanan Saya', 'route' => 'orders.index'],
         ['label' => 'Ulasan Saya', 'route' => 'reviews.index'],
+        ['label' => 'Profil', 'route' => 'profile.edit'],
 
     ];
 @endphp
