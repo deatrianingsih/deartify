@@ -7,6 +7,7 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=playfair-display|instrument-sans" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { background-color: #F5EAD8; }
         .sidebar { background-color: #fff; min-height: 100vh; }

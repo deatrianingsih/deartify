@@ -37,7 +37,22 @@
     </div>
 </div>
 
-<div class="card border-0 shadow-sm" style="border-radius: 16px;">
+<div class="row g-3 mt-1">
+    <div class="col-md-7">
+        <div class="card border-0 shadow-sm p-3" style="border-radius: 16px;">
+            <h6 class="mb-3">Grafik Pendapatan 7 Hari Terakhir</h6>
+            <canvas id="revenueChart" height="120"></canvas>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card border-0 shadow-sm p-3" style="border-radius: 16px;">
+            <h6 class="mb-3">Status Pesanan</h6>
+            <canvas id="statusChart" height="180"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mt-4" style="border-radius: 16px;">
     <div class="card-body">
         <h6 class="mb-3">Pesanan Terbaru</h6>
         <table class="table mb-0">
@@ -66,4 +81,38 @@
         </table>
     </div>
 </div>
+
+<script>
+    new Chart(document.getElementById('revenueChart'), {
+        type: 'line',
+        data: {
+            labels: @json($revenueLabels),
+            datasets: [{
+                label: 'Pendapatan',
+                data: @json($revenueData),
+                borderColor: '#8B6F5B',
+                backgroundColor: 'rgba(139, 111, 91, 0.1)',
+                tension: 0.3,
+                fill: true,
+            }]
+        },
+        options: { plugins: { legend: { display: false } } }
+    });
+
+    new Chart(document.getElementById('statusChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Pending', 'Diproses', 'Dikirim', 'Selesai'],
+            datasets: [{
+                data: [
+                    {{ $statusCounts['pending'] }},
+                    {{ $statusCounts['in_progress'] }},
+                    {{ $statusCounts['shipped'] }},
+                    {{ $statusCounts['completed'] }}
+                ],
+                backgroundColor: ['#C9AF9A', '#8B6F5B', '#6B4F3F', '#4A3B32'],
+            }]
+        }
+    });
+</script>
 @endsection

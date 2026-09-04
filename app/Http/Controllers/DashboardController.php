@@ -12,6 +12,16 @@ class DashboardController extends Controller
         $user = auth()->user();
 
         if ($user->isAdmin()) {
+
+        $revenuePerDay = collect(range(6, 0))->map(function ($daysAgo) {
+            $date = now()->subDays($daysAgo);
+            return [
+                'label' => $date->format('d M'),
+                'total' => Order::where('status', 'completed')
+                    ->whereDate('updated_at', $date)
+                    ->sum('total_price'),
+            ];
+        });
             return view('dashboard.admin', [
                 'totalCustomers' => User::where('role', 'customer')->count(),
                 'totalOrders' => Order::count(),
@@ -19,6 +29,14 @@ class DashboardController extends Controller
                 'completedOrders' => Order::where('status', 'completed')->count(),
                 'totalRevenue' => Order::where('status', 'completed')->sum('total_price'),
                 'recentOrders' => Order::with(['user', 'servicePrice'])->latest()->take(5)->get(),
+                'revenueLabels' => $revenuePerDay->pluck('label'),
+                'revenueData' => $revenuePerDay->pluck('total'),
+                'statusCounts' => [
+                    'pending' => Order::where('status', 'pending')->count(),
+                    'in_progress' => Order::where('status', 'in_progress')->count(),
+                    'shipped' => Order::where('status', 'shipped')->count(),
+                    'completed' => Order::where('status', 'completed')->count(),
+                ],
             ]);
         }
 
