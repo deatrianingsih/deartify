@@ -41,8 +41,12 @@ class DashboardController extends Controller
         }
 
         return view('dashboard.customer', [
-            'myOrders' => Order::where('user_id', $user->id)->with('servicePrice')->latest()->take(5)->get(),
             'totalMyOrders' => Order::where('user_id', $user->id)->count(),
+            'inProgressOrders' => Order::where('user_id', $user->id)->where('status', 'in_progress')->count(),
+            'completedOrders' => Order::where('user_id', $user->id)->where('status', 'completed')->count(),
+            'avgRating'=> \App\Models\Review::whereHas('order', fn ($q) => $q->where('user_id', $user->id))->avg('rating'),
+            'myOrders' => Order::where('user_id', $user->id)->with('servicePrice')->latest()->take(5)->get(),
+            'popularServices' => \App\Models\ServicePrice::latest()->take(4)->get(),
         ]);
     }
 }

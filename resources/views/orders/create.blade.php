@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="container">
     <h4 class="fw-semibold mb-4">Buat Pesanan Baru</h4>
 
     <div class="card border-0 shadow-sm p-4" style="border-radius: 16px; max-width: 600px;">
@@ -9,7 +8,7 @@
         @csrf
 
         <div class="mb-3">
-            <label class="form-label">Jenis Jasa</label>
+            <label class="form-label">Jenis Layanan</label>
             <select name="service_price_id" class="form-select @error('service_price_id') is-invalid @enderror">
                 <option value="">-- Pilih Jasa --</option>
                 @foreach ($servicePrices as $sp)
@@ -24,18 +23,21 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Deskripsi Pesanan</label>
-            <textarea name="description" class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
+            <label class="form-label">Detail Pesanan</label>
+            <textarea name="description" rows="3" placeholder="Jelaskan detail gambar yang kamu inginkan..." class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
             @error('description') 
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Gambar Referensi (opsional)</label>
-            <input type="file" name="reference_image" class="form-control @error('reference_image') is-invalid @enderror">
+            <label class="form-label">Referensi/Gambaran (opsional)</label>
+            <div class="border border-2 border-dashed rounded-3 p-4 text-center" style="border-color: #C9AF9A !important; background-color: #FBF6EE">
+            <input type="file" name="reference_image" class="form-control @error('reference_image') is-invalid @enderror" style="border: none; background: transparent">
+            <div class="small text-muted mt-1">Klik untuk upload gambar referensi</div>
+            </div>
             @error('reference_image') 
-                <div class="invalid-feedback">{{ $message }}</div> 
+                <div class="invalid-feedback d-block">{{ $message }}</div> 
             @enderror
         </div>
 
@@ -65,7 +67,7 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn text-white" style="background-color: #8B6F5B;">Kirim Pesanan</button>
+        <button type="submit" class="btn text-white px-4" style="background-color: #8B6F5B;">Kirim Pesanan</button>
         <a href="{{ route('orders.index') }}" class="btn btn-outline-secondary">Batal</a>
     </form>
 </div>

@@ -2,48 +2,41 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-semibold mb-0">Harga Jasa</h4>
+        <h4 class="fw-semibold mb-0">Layanan & Harga Jasa</h4>
         <a href="{{ route('service_prices.create') }}" class="btn text-white" style="background-color: #8B6F5B;">
             + Tambah Harga Jasa
         </a>
     </div>
 
-    <div class="card border-0 shadow-sm" style="border-radius: 16px;">
-        <table class="card-body p-0">
-            <thead>
-                <tr class="text-muted">
-                    <th class="px-4 py-3">Nama Jasa</th>
-                    <th class="px-4 py-3">Deskripsi</th>
-                    <th class="px-4 py-3">Harga</th>
-                    <th class="px-4 py-3">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($servicePrices as $servicePrice)
-                <tr>
-                    <td class="px-4 py-3 fw-medium">{{ $servicePrice->name }}</td>
-                    <td class="px-4 py-3 text-muted">{{ $servicePrice->description }}</td>
-                    <td class="px-4 py-3">Rp {{ number_format($servicePrice->price, 0, ',', '.') }}</td>
-                    <td class="px-4 py-3">
-                        <a href="{{ route('service_prices.edit', $servicePrice) }}" style="color: #6B4F3F">Edit</a>
+    <div class="row g-3">
+        @forelse ($servicePrices as $servicePrice)
+            <div class="col-md-4 col-lg-3">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px;">
+                    @if ($servicePrice->image)
+                        <img src="{{ Storage::url($servicePrice->image) }}" class="card-img-top" style="height: 160px; object-fit: cover; border-radius: 16px 16px 0 0;">
+                    @else
+                        <div class="d-flex align-items-center justify-content-center" style="height: 160px; background-color: #F5EAD8; border-radius: 16px 16px 0 0;">
+                            <span class="text-muted small">Tidak ada gambar</span>
+                        </div>
+                    @endif
+                    <div class="card-body">
+                        <h6 class="fw-semibold mb-1">{{ $servicePrice->name }}</h6>
+                        <p class="text-muted small mb-2">{{ Str::limit($servicePrice->description, 60) }}</p>
+                        <p class="fw-semibold mb-3" style="color: #6B4F3F;">Rp{{ number_format($servicePrice->price, 0, ',', '.') }}</p>
+                        <a href="{{ route('service_prices.edit', $servicePrice) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
                         <form action="{{ route('service_prices.destroy', $servicePrice) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-link text-danger p-0 ms-3">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="4" class="text-center text-muted">Belum ada data harga jasa.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
+                    </form>
+                </div>
+            </div>
         </div>
+        @empty
+            <p class="text-muted">Belum ada data harga jasa.</p>
+        @endforelse
     </div>
-
-    <div class="mt-3">
+    <div class="mt-4">
         {{ $servicePrices->links() }}
     </div>
-@endsection
+    @endsection

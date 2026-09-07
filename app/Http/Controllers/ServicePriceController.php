@@ -27,7 +27,12 @@ class ServicePriceController extends Controller
             'name' => ['required', 'string', 'max:128'],
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
+            'image' => ['nullable', 'image', 'max:2048'],
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('service_prices', 'public');
+        }
 
         ServicePrice::create($validated);
 
@@ -45,7 +50,12 @@ class ServicePriceController extends Controller
             'name' => ['required', 'string', 'max:128'],
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
+            'image' => ['nullable', 'image', 'max:2048'],
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('service_prices', 'public');
+        }
 
         $servicePrice->update($validated);
 

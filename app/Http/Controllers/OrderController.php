@@ -18,7 +18,7 @@ class OrderController extends Controller
     {
         $user = auth()->user();
 
-        $orders = $user->isAdmin() ? Order::with(['user', 'servicePrice'])->latest()->paginate(10) : Order::where(['user_id', $user->id])->with('servicePrice')->latest()->paginate(10);
+        $orders = $user->isAdmin() ? Order::with(['user', 'servicePrice'])->latest()->paginate(10) : Order::where('user_id', $user->id)->with('servicePrice')->latest()->paginate(10);
 
         return view('orders.index', compact('orders'));
     }
@@ -39,7 +39,7 @@ class OrderController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'service_price_id' => ['required|exists:service_prices,id'],
+            'service_price_id' => ['required', 'exists:service_prices,id'],
             'description' => ['required', 'string'],
             'reference_image' => ['nullable', 'image', 'max:2048'],
             'recipient_name' => ['required', 'string', 'max:128'],
