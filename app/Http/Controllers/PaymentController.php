@@ -46,4 +46,9 @@ class PaymentController extends Controller
 
         return redirect()->route('payments.index')->with('success', 'Payment confirmed as received.');
     }
+
+    public function show(Payment $payment): View
+    {
+        return view('payments.show', compact('payment'));
+    }
 }

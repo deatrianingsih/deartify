@@ -1,16 +1,37 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-3">
     <h4 class="fw-semibold mb-0">Daftar Pesanan</h4>
-        @if (!auth()->user()->isAdmin())
-            <a href="{{ route('orders.create') }}" class="btn text-white" style="background-color: #8B6F5B;">
-                + Buat Pesanan Baru
-            </a>
-        @endif
-    </div>
+    @if (!auth()->user()->isAdmin())
+        <a href="{{ route('orders.create') }}" class="btn text-white" style="background-color: #8B6F5B;">
+            + Buat Pesanan Baru
+        </a>
+    @endif
+</div>
 
-    <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+<ul class="nav mb-3" style="gap: 8px;">
+    @php
+        $tabs = [
+            '' => 'Semua',
+            'pending' => 'Menunggu',
+            'in_progress' => 'Diproses',
+            'shipped' => 'Dikirim',
+            'completed' => 'Selesai',
+        ];
+    @endphp
+    @foreach ($tabs as $value => $label)
+        <li>
+            <a href="{{ route('orders.index', $value ? ['status' => $value] : []) }}"
+               class="btn btn-sm {{ ($status ?? '') === $value ? 'text-white' : 'btn-outline-secondary' }}"
+               style="{{ ($status ?? '') === $value ? 'background-color: #8B6F5B;' : '' }}">
+                {{ $label }}
+            </a>
+        </li>
+    @endforeach
+</ul>
+
+<div class="card border-0 shadow-sm" style="border-radius: 16px;">
         <div class="card-body p-0">
         <table class="table mb-0">
             <thead>

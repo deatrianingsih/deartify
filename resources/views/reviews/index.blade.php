@@ -20,7 +20,7 @@
         <tbody>
             @forelse ($reviews as $review)
             <tr>
-                <td class="px-4 py-3">{{ $review->user->nama }}</td>
+                <td class="px-4 py-3">{{ $review->user->name }}</td>
                 <td class="px-4 py-3">{{ $review->order->servicePrice->name }}</td>
                 <td class="px-4 py-3" style="color: #E8B84B">{{ str_repeat("\u{2B50}", $review->rating) }}</td>
                 <td class="px-4 py-3 text-muted">{{ $review->comment }}</td>
@@ -43,6 +43,6 @@
     </table>
     </div>
     </div>
-    {{  $reviews->links }}
+    {{  $reviews->links() }}
 </div>
 @endsection

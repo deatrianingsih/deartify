@@ -29,15 +29,7 @@
                     </span>
                 </td>
                 <td class="px-4 py-3">
-                    @if ($payment->status === 'pending')
-                    <form action="{{ route('payments.confirm', $payment) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-sm text-white" style="background-color: #6B4F3F;">Konfirmasi Diterima</button>
-                    </form>
-                    @else
-                    <span class="text-muted">Sudah Diterima</span>
-                    @endif
+                    <a href="{{ route('payments.show', $payment) }}" style="color: #6B4F3F;">Detail</a>
                 </td>
             </tr>
                 

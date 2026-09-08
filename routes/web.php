@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('service_prices', ServicePriceController::class)->except(['show']);
 
         Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
+        Route::get('/payments/{payment}', [PaymentController::class, 'show'])->name('payments.show');
         Route::post('/orders/{order}/payments', [PaymentController::class, 'store'])->name('payments.store');
         Route::patch('/payments/{payment}/confirm', [PaymentController::class, 'confirmReceived'])->name('payments.confirm');
 

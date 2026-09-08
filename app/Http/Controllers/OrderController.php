@@ -14,13 +14,22 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $user = auth()->user();
+        $status = $request->query('status');
 
-        $orders = $user->isAdmin() ? Order::with(['user', 'servicePrice'])->latest()->paginate(10) : Order::where('user_id', $user->id)->with('servicePrice')->latest()->paginate(10);
+        $query = $user->isAdmin()
+            ? Order::with(['user', 'servicePrice'])
+            : Order::where('user_id', $user->id)->with('servicePrice');
 
-        return view('orders.index', compact('orders'));
+        if ($status && $status !== 'all') {
+            $query->where('status', $status);
+        }
+
+        $orders = $query->latest()->paginate(10)->withQueryString();
+
+        return view('orders.index', compact('orders', 'status'));
     }
 
     /**
