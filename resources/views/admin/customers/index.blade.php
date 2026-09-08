@@ -2,6 +2,9 @@
 
 @section('content')
     <h4 class="fw-semibold mb-4">Data Pelanggan</h4>
+    <form method="GET" class="mb-3" style="max-width: 350px">
+        <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari nama atau email..." class="form-control">
+    </form>
 
     <div class="card border-0 shadow-sm" style="border-radius: 16px;">
         <div class="card-body p-0">

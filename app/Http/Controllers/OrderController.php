@@ -35,11 +35,12 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         $servicePrices = ServicePrice::all();
+        $selectedServiceId = $request->query('service_price_id');
 
-        return view('orders.create', compact('servicePrices'));
+        return view('orders.create', compact('servicePrices', 'selectedServiceId'));
     }
 
     /**

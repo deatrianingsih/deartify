@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'DeArtify') }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=playfair-display|instrument-sans" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -12,8 +13,8 @@
         body { background-color: #F5EAD8; }
         .sidebar { background-color: #fff; min-height: 100vh; }
         .sidebar .nav-link { color: #4A3B32; border-radius: 10px; padding: 10px 16px; }
-        .sidebar .nav-link-active { background-color: #8B6F5B; color: #fff; }
-        .sidebar .nav-link:hover:not (.active) { background-color: #F5EAD8; }
+        .sidebar .nav-link.active { background-color: #8B6F5B; color: #fff; }
+        .sidebar .nav-link:hover:not(.active) { background-color: #F5EAD8; }
         .brand-logo { font-family: 'Playfair Display', serif; font-style: italic;}
     </style>
 </head>

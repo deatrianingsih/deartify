@@ -12,7 +12,9 @@
             <label class="form-label">Status</label>
             <select name="status" class="form-select">
                 @foreach (['pending', 'in_progress', 'shipped', 'completed'] as $status)
-                    <option value="{{ $status }}" @selected($order->status === $status)>{{ $status }}</option>
+                    <option value="{{ $sp->id }}" @selected(old('service_price_id', $selectedServiceId) == $sp->id)>
+                        {{ $sp->name }} — Rp{{ number_format($sp->price, 0, ',', '.') }}
+                    </option>
                 @endforeach
             </select>
         </div>
