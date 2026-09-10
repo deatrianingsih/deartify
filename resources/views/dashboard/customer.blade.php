@@ -1,17 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="d-flex justify-content-end align-items-center gap-3 mb-3">
-    <i class="bi bi-bell fs-5 text-muted"></i>
-    <div class="d-flex align-items-center gap-2">
-        <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-semibold"
-             style="width: 36px; height: 36px; background-color: #8B6F5B; font-size: 0.85rem;">
-            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-        </div>
-        <span class="small fw-medium">Halo, {{ auth()->user()->name }}</span>
-        <i class="bi bi-chevron-down small text-muted"></i>
-    </div>
-</div>
 <div class="card border-0 shadow-sm p-5 mb-4 overflow-hidden" style="
     border-radius: 16px;
     min-height: 190px;

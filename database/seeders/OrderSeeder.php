@@ -41,7 +41,7 @@ class OrderSeeder extends Seeder
             'user_id'=> $customer->id,
             'amount'=> $order->total_price,
             'method'=>'cod',
-            'status'=>'pending,'
+            'status'=>'pending'
         ]);
     }
 }
