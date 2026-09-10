@@ -5,7 +5,7 @@
         ['label' => 'Harga Jasa', 'route' => 'service_prices.index', 'icon' => 'bi-palette'],
         ['label' => 'Pesanan', 'route' => 'orders.index', 'icon' => 'bi-bag'],
         ['label' => 'Pembayaran', 'route' => 'payments.index', 'icon' => 'bi-cash-coin'],
-        ['label' => 'Profil', 'route' => 'profile.edit', 'icon' => 'bi-person'],
+        ['label' => 'Profil', 'route' => 'profile.show', 'icon' => 'bi-person'],
     ];
 @endphp
 

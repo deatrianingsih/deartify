@@ -10,6 +10,11 @@ use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
+    public function show(): View
+    {
+        return view('profile.show', ['user'=> auth()->user()]);
+    }
+
    public function edit(): View
     {
        return view('profile.edit', [
@@ -24,12 +29,18 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users,email,' . $user->id,
             'password' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string'],
         ]);
 
         $user->update($validated);
 
-        return redirect()->route('profile.edit')
+        return redirect()->route('profile.show')
             ->with('success', 'Profil berhasil diperbarui.');
+    }
+
+    public function editPassword(): View
+    {
+        return view('profile.password');
     }
 
     public function updatePassword(Request $request): RedirectResponse
@@ -43,7 +54,7 @@ class ProfileController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('profile.edit')
+        return redirect()->route('profile.show')
             ->with('success', 'Kata sandi berhasil diperbarui.');
     }
 }

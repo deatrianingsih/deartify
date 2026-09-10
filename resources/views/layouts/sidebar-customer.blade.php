@@ -4,7 +4,7 @@
         ['label' => 'Layanan & Harga', 'route' => 'service_prices.index', 'icon' => 'bi-palette'],
         ['label' => 'Pesanan Saya', 'route' => 'orders.index', 'icon' => 'bi-bag'],
         ['label' => 'Ulasan Saya', 'route' => 'reviews.index', 'icon' =>'bi-star'],
-        ['label' => 'Profil', 'route' => 'profile.edit', 'icon' => 'bi-person'],
+        ['label' => 'Profil', 'route' => 'profile.show', 'icon' => 'bi-person'],
 
     ];
 @endphp

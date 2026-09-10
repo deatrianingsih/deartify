@@ -1,23 +1,17 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<h4 class="fw-semibold mb-4">Profil Saya</h4>
+<h4 class="fw-semibold mb-4">Edit Profil</h4>
 
-<div class="card border-0 shadow-sm p-4 mb-4" style="border-radius: 16px; max-width: 500px;">
-    <h6 class="mb-3">Informasi Akun</h6>
-
-    @if ($errors->updateProfile ?? false)
-        <div class="alert alert-danger">Terjadi kesalahan, cek kembali data kamu.</div>
-    @endif
-
+<div class="card border-0 shadow-sm p-4" style="border-radius: 16px; max-width: 500px;">
     <form action="{{ route('profile.update') }}" method="POST">
         @csrf
         @method('PUT')
 
         <div class="mb-3">
-            <label class="form-label">Nama Lengkap</label>
-            <input type="text" name="nama" value="{{ old('nama', $user->nama) }}" class="form-control @error('nama') is-invalid @enderror">
-            @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            <label class="form-label">Nama</label>
+            <input type="text" name="name" value="{{ old('name', $user->name) }}" class="form-control @error('name') is-invalid @enderror">
+            @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
         <div class="mb-3">
@@ -32,35 +26,16 @@
             @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
-        <button type="submit" class="btn text-white" style="background-color: #8B6F5B;">Simpan Perubahan</button>
-    </form>
-</div>
-
-<div class="card border-0 shadow-sm p-4" style="border-radius: 16px; max-width: 500px;">
-    <h6 class="mb-3">Ubah Password</h6>
-
-    <form action="{{ route('profile.password') }}" method="POST">
-        @csrf
-        @method('PUT')
-
-        <div class="mb-3">
-            <label class="form-label">Password Saat Ini</label>
-            <input type="password" name="current_password" class="form-control @error('current_password') is-invalid @enderror">
-            @error('current_password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        <div class="mb-4">
+            <label class="form-label">Alamat</label>
+            <textarea name="address" rows="2" class="form-control @error('address') is-invalid @enderror">{{ old('address', $user->address) }}</textarea>
+            @error('address') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Password Baru</label>
-            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
-            @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn text-white px-4" style="background-color: #8B6F5B;">Simpan</button>
+            <a href="{{ route('profile.show') }}" class="btn btn-outline-secondary px-4">Batal</a>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label">Konfirmasi Password Baru</label>
-            <input type="password" name="password_confirmation" class="form-control">
-        </div>
-
-        <button type="submit" class="btn text-white" style="background-color: #8B6F5B;">Ubah Password</button>
     </form>
 </div>
 @endsection

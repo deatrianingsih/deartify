@@ -26,8 +26,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
     // Profil (admin & customer dua-duanya bisa akses)
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/password', [ProfileController::class, 'editPassword'])->name('profile.password.edit');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
 
     // Layanan & Harga: lihat daftar bisa diakses admin & customer
