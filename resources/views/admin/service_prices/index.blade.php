@@ -15,9 +15,9 @@
         <div class="col-md-4 col-lg-3">
             <div class="card border-0 shadow-sm h-100" style="border-radius: 16px;">
                 @if ($servicePrice->image)
-                    <img src="{{ Storage::url($servicePrice->image) }}" class="card-img-top" style="height: 160px; object-fit: cover; border-radius: 16px 16px 0 0;">
+                    <img src="{{ Storage::url($servicePrice->image) }}" class="card-img-top" style="height: 350px; object-fit: cover; border-radius: 16px 16px 0 0;">
                 @else
-                    <div class="d-flex align-items-center justify-content-center" style="height: 160px; background-color: #F5EAD8; border-radius: 16px 16px 0 0;">
+                    <div class="d-flex align-items-center justify-content-center" style="height: 350px; background-color: #F5EAD8; border-radius: 16px 16px 0 0;">
                         <span class="text-muted small">Tidak ada gambar</span>
                     </div>
                 @endif
