@@ -43,14 +43,12 @@
 
         <div class="d-flex flex-column flex-grow-1">
             <header class="d-flex justify-content-end align-items-center gap-3 px-4 py-3" style="background-color: #8B6F5B;">
-                <i class="bi bi-bell fs-5 text-white"></i>
                 <div class="d-flex align-items-center gap-2">
                     <div class="rounded-circle d-flex align-items-center justify-content-center fw-semibold"
                          style="width: 32px; height: 32px; background-color: #FFF8F0; color: #8B6F5B; font-size: 0.8rem;">
                         {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                     </div>
                     <span class="small fw-medium text-white">Halo, {{ auth()->user()->name }}</span>
-                    <i class="bi bi-chevron-down small text-white"></i>
                 </div>
             </header>
 

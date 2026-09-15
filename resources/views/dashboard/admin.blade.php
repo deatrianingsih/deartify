@@ -44,11 +44,11 @@
         <h6 class="mb-3">Pesanan Terbaru</h6>
         <table class="table mb-0">
             <thead>
-                <tr class="text-muted">
-                    <th>Customer</th>
-                    <th>Layanan</th>
-                    <th>Status</th>
-                    <th>Total</th>
+                <tr>
+                    <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 8px 0 0 8px;">ustomer</th>
+                    <th class="py-2 px-2" style="background-color: #EDDECA;">Layanan</th>
+                    <th class="py-2 px-2" style="background-color: #EDDECA;">Status</th>
+                    <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 0 8px 8px 0;">Total</th>
                 </tr>
             </thead>
             <tbody>

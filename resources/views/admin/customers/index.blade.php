@@ -10,11 +10,11 @@
         <div class="card-body p-0">
     <table class="table mb-0">
         <thead>
-            <tr class="text-muted">
-                <th class="px-4 py-3">Name</th>
-                <th class="px-4 py-3">Email</th>
-                <th class="px-4 py-3">No. Telepon</th>
-                <th class="px-4 py-3">Aksi</th>
+            <tr>
+                <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 8px 0 0 8px;">Nama</th>
+                <th class="py-2 px-2" style="background-color: #EDDECA;">Email</th>
+                <th class="py-2 px-2" style="background-color: #EDDECA;">No. Telepon</th>
+                <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 0 8px 8px 0;">Aksi</th>
             </tr>
         </thead>
         <tbody>

@@ -49,11 +49,11 @@
         </div>
         <table class="table mb-0">
             <thead>
-                <tr class="text-muted">
-                    <th>Judul Pesanan</th>
-                    <th>Tanggal</th>
-                    <th>Status</th>
-                    <th>Total</th>
+                <tr>
+                    <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 8px 0 0 8px;">Judul Pesanan</th>
+                    <th class="py-2 px-2" style="background-color: #EDDECA;">Tanggal</th>
+                    <th class="py-2 px-2" style="background-color: #EDDECA;">Status</th>
+                    <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 0 8px 8px 0;">Total</th>
                 </tr>
             </thead>
             <tbody>
