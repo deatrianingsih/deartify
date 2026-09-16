@@ -17,12 +17,12 @@
 <div class="card border-0 shadow-sm p-4 mb-3" style="border-radius: 16px;">
     <div class="d-flex justify-content-between align-items-center">
         @foreach ($steps as $key => $label)
-        @php $isActive = array_search($key, $statusOrder) <= $currentIndex; @endphp
+        @php $isActive = array_search($key, $statusOrder) === $currentIndex; @endphp
         <div class="text-center flex-fill position-relative">
             @if (!$loop->first)
-            <div style="position: absolute; top:20px; left: -50%; width:100%; height: 2px; background-color:{{ $isActive ? '#8B6F5B' : '#E3D2BA' }}; z-index: 0;"></div>
+                <div style="position: absolute; top:20px; left: -50%; width: 100%; height: 2px; background-color:{{ array_search($key, $statusOrder) <= $currentIndex ? '#8B6F5B' : '#E3D2BA'}}; z-index: 0;"></div>
             @endif
-            <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2 fw-semibold position-relative"
+                <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2 fw-semibold position-relative"
             style="width: 40px; height: 40px; z-index: 1; background-color: {{ $isActive ? '#6B4F3F' : '#fff' }}; color:{{ $isActive ? '#fff' : '#6B4F3F' }}; border: 2px solid #6B4F3F;">
         {{ $loop->iteration }}
         </div>

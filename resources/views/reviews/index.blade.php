@@ -7,13 +7,13 @@
         <div class="card-body p-0">
     <table class="table mb-0">
         <thead>
-            <tr class="text-muted">
-                <th class="px-4 py-3">Customer</th>
-                <th class="px-4 py-3">Jasa</th>
-                <th class="px-4 py-3">Rating</th>
-                <th class="px-4 py-3">Komentar</th>
+            <tr>
+                <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 8px 0 0 8px;">Customer</th>
+                <th class="py-2 px-2" style="background-color: #EDDECA;">Jasa</th>
+                <th class="py-2 px-2" style="background-color: #EDDECA;">Rating</th>
+                <th class="py-2 px-2" style="background-color: #EDDECA; {{ auth()->user()->isAdmin() ? '' : 'border-radius: 0 8px 8px 0;' }}">Komentar</th>
                 @if (auth()->user()->isAdmin())
-                    <th class="px-4 py-3">Aksi</th>
+                    <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 0 8px 8px 0;">Aksi</th>
                 @endif
             </tr>
         </thead>
