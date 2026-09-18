@@ -1,84 +1,108 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="fw-semibold mb-0">Daftar Pesanan</h4>
-    @if (!auth()->user()->isAdmin())
-        <a href="{{ route('orders.create') }}" class="btn text-white" style="background-color: #8B6F5B;">
-            + Buat Pesanan Baru
-        </a>
-    @endif
+<div class="mb-4">
+    <h4 class="fw-semibold mb-1"><i class="bi bi-clipboard-check me-2" style="color: #8B6F5B;"></i>Pesanan Saya</h4>
+    <p class="text-muted small mb-0">Lihat dan pantau semua pesanan ilustrasi kamu di sini</p>
 </div>
 
-<ul class="nav mb-3" style="gap: 8px;">
-    @php
-        $tabs = [
-            '' => 'Semua',
-            'pending' => 'Menunggu',
-            'in_progress' => 'Diproses',
-            'shipped' => 'Dikirim',
-            'completed' => 'Selesai',
-        ];
-    @endphp
-    @foreach ($tabs as $value => $label)
-        <li>
-            <a href="{{ route('orders.index', $value ? ['status' => $value] : []) }}"
-               class="btn btn-sm {{ ($status ?? '') === $value ? 'text-white' : 'btn-outline-secondary' }}"
-               style="{{ ($status ?? '') === $value ? 'background-color: #8B6F5B;' : '' }}">
-                {{ $label }}
-            </a>
-        </li>
-    @endforeach
-</ul>
+@if (!auth()->user()->isAdmin())
+    <a href="{{ route('orders.create') }}" class="btn text-white mb-3" style="background-color: #8B6F5B;">
+        + Buat Pesanan Baru
+    </a>
+@endif
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+    <ul class="nav" style="gap: 8px;">
+        @php
+            $tabs = [
+                '' => ['label' => 'Semua', 'icon' => 'bi-grid'],
+                'pending' => ['label' => 'Menunggu', 'icon' => 'bi-clock'],
+                'in_progress' => ['label' => 'Diproses', 'icon' => 'bi-hourglass-split'],
+                'shipped' => ['label' => 'Dikirim', 'icon' => 'bi-truck'],
+                'completed' => ['label' => 'Selesai', 'icon' => 'bi-check-circle'],
+            ];
+        @endphp
+        @foreach ($tabs as $value => $tab)
+            <li>
+                <a href="{{ route('orders.index', array_filter(['status' => $value, 'search' => $search ?? null])) }}"
+                   class="btn btn-sm {{ ($status ?? '') === $value ? 'text-white' : 'btn-outline-secondary' }}"
+                   style="{{ ($status ?? '') === $value ? 'background-color: #8B6F5B;' : '' }} border-radius: 20px;">
+                    <i class="bi {{ $tab['icon'] }} me-1"></i>{{ $tab['label'] }}
+                </a>
+            </li>
+        @endforeach
+    </ul>
+
+    <form method="GET" class="d-flex" style="max-width: 260px;">
+        <input type="hidden" name="status" value="{{ $status ?? '' }}">
+        <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari pesanan..." class="form-control form-control-sm">
+    </form>
+</div>
 
 <div class="card border-0 shadow-sm" style="border-radius: 16px;">
     <div class="card-body p-0">
         <table class="table mb-0">
             <thead>
                 <tr>
+                    <th class="py-2 px-3" style="background-color: #EDDECA; border-radius: 8px 0 0 8px;">No</th>
+                    <th class="py-2 px-3" style="background-color: #EDDECA;">Gambar</th>
+                    <th class="py-2 px-3" style="background-color: #EDDECA;">Detail Pesanan</th>
                     @if (auth()->user()->isAdmin())
-                        <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 8px 0 0 8px;">Customer</th>
-                        <th class="py-2 px-2" style="background-color: #EDDECA;">Jasa</th>
-                    @else
-                        <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 8px 0 0 8px;">Jasa</th>
+                        <th class="py-2 px-3" style="background-color: #EDDECA;">Customer</th>
                     @endif
-                    <th class="py-2 px-2" style="background-color: #EDDECA;">Status</th>
-                    <th class="py-2 px-2" style="background-color: #EDDECA;">Total</th>
-                    <th class="py-2 px-2" style="background-color: #EDDECA; border-radius: 0 8px 8px 0;">Aksi</th>
+                    <th class="py-2 px-3" style="background-color: #EDDECA;">Status</th>
+                    <th class="py-2 px-3" style="background-color: #EDDECA;">Total</th>
+                    <th class="py-2 px-3" style="background-color: #EDDECA; border-radius: 0 8px 8px 0;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $statusIcons = ['pending' => 'bi-clock', 'in_progress' => 'bi-hourglass-split', 'shipped' => 'bi-truck', 'completed' => 'bi-check-circle-fill'];
+                @endphp
                 @forelse ($orders as $order)
                     <tr>
+                        <td class="px-3 py-3">{{ $loop->iteration + ($orders->currentPage() - 1) * $orders->perPage() }}</td>
+                        <td class="px-3 py-3">
+                            @if ($order->servicePrice->image)
+                                <img src="{{ Storage::url($order->servicePrice->image) }}" width="48" height="48" class="rounded" style="object-fit: cover;">
+                            @else
+                                <div class="rounded" style="width: 48px; height: 48px; background-color: #F5EAD8;"></div>
+                            @endif
+                        </td>
+                        <td class="px-3 py-3">
+                            <div class="fw-semibold">{{ $order->servicePrice->name }}</div>
+                            <div class="small text-muted mb-1">{{ Str::limit($order->description, 40) }}</div>
+                            <a href="{{ route('orders.show', $order) }}" class="small text-decoration-none" style="color: #6B4F3F;">Lihat Detail <i class="bi bi-arrow-right"></i></a>
+                        </td>
                         @if (auth()->user()->isAdmin())
-                            <td class="px-4 py-3">{{ $order->user->name }}</td>
+                            <td class="px-3 py-3">{{ $order->user->name }}</td>
                         @endif
-                        <td class="px-4 py-3">{{ $order->servicePrice->name }}</td>
-                        <td class="px-4 py-3">
+                        <td class="px-3 py-3">
                             <span class="badge" style="background-color: #C9AF9A; color: #4A3B32;">
-                                {{ $order->status }}
+                                <i class="bi {{ $statusIcons[$order->status] ?? 'bi-circle' }} me-1"></i>{{ $order->status }}
                             </span>
                         </td>
-                        <td class="px-4 py-3">Rp{{ number_format($order->total_price, 0, ',', '.') }}</td>
-                        <td class="px-4 py-3">
-                            <a href="{{ route('orders.show', $order) }}" class="text-decoration-none me-3" style="color: #6B4F3F;" title="Lihat Detail">
-                                <i class="bi bi-eye fs-5"></i>
+                        <td class="px-3 py-3">Rp{{ number_format($order->total_price, 0, ',', '.') }}</td>
+                        <td class="px-3 py-3">
+                            <a href="{{ route('orders.show', $order) }}" class="btn btn-sm text-white me-1" style="background-color: #8B6F5B;">
+                                <i class="bi bi-eye"></i> Lihat Detail
                             </a>
                             @if (auth()->user()->isAdmin())
-                                <a href="{{ route('orders.edit', $order) }}" class="text-decoration-none me-3" style="color: #6B4F3F;" title="Ubah Status">
-                                    <i class="bi bi-pencil-square fs-5"></i>
+                                <a href="{{ route('orders.edit', $order) }}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="bi bi-three-dots"></i>
                                 </a>
                             @endif
                             @if (!auth()->user()->isAdmin() && $order->status === 'completed')
-                                <a href="{{ route('reviews.create', $order) }}" class="text-decoration-none" style="color: #6B4F3F;" title="Beri Ulasan">
-                                    <i class="bi bi-star fs-5"></i>
+                                <a href="{{ route('reviews.create', $order) }}" class="btn btn-sm btn-outline-secondary" title="Beri Ulasan">
+                                    <i class="bi bi-star"></i>
                                 </a>
                             @endif
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center text-muted py-4">Belum ada pesanan.</td>
+                        <td colspan="7" class="text-center text-muted py-4">Belum ada pesanan.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -86,7 +110,8 @@
     </div>
 </div>
 
-<div class="mt-3">
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <span class="small text-muted">Menampilkan {{ $orders->count() }} dari {{ $orders->total() }} pesanan</span>
     {{ $orders->links() }}
 </div>
 @endsection

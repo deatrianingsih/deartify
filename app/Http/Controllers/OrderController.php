@@ -18,6 +18,7 @@ class OrderController extends Controller
     {
         $user = auth()->user();
         $status = $request->query('status');
+        $search = $request->query('search');
 
         $query = $user->isAdmin()
             ? Order::with(['user', 'servicePrice'])
@@ -27,9 +28,13 @@ class OrderController extends Controller
             $query->where('status', $status);
         }
 
+        if ($search) {
+            $query->whereHas('servicePrice', fn ($q) => $q->where('name', 'like', "%{$search}%"));
+        }
+
         $orders = $query->latest()->paginate(10)->withQueryString();
 
-        return view('orders.index', compact('orders', 'status'));
+        return view('orders.index', compact('orders', 'status', 'search'));
     }
 
     /**
