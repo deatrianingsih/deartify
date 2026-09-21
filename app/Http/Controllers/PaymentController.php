@@ -13,12 +13,19 @@ class PaymentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        //Cuma admin yang buka halaman ini 
-        $payments = Payment::with(['order', 'user'])->latest()->paginate(10);
+    $search = $request->query('search');
 
-        return view('payments.index', compact('payments'));
+    $payments = Payment::with(['order', 'user'])
+        ->when($search, function ($query, $search) {
+            $query->whereHas('user', fn ($q) => $q->where('name', 'like', "%{$search}%")->orWhere('email', 'like', "%{$search}%"));
+        })
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('payments.index', compact('payments', 'search'));
     }
 
     /**

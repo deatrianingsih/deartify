@@ -3,7 +3,7 @@
 @section('content')
 <div class="mb-4">
     <h4 class="fw-semibold mb-1"><i class="bi bi-palette me-2" style="color: #8B6F5B;"></i>Layanan & Harga Jasa</h4>
-    <p class="text-muted small mb-0">Pilih layanan ilustrasi yang sesuai dengan kebutuhanmu</p>
+    <p class="text-muted small mb-0">Kelola layanan ilustrasi dan atur harga jasa yang tersedia</p>
 </div>
 
 @if (auth()->user()->isAdmin())
@@ -21,7 +21,7 @@
             <div class="h-100" style="border-radius: 16px; overflow: hidden; background-color: #FCF5EC;">
                 <div class="position-relative">
                     @if ($servicePrice->image)
-                        <img src="{{ Storage::url($servicePrice->image) }}" class="w-100" style="height: 200px; object-fit: cover;">
+                        <img src="{{ Storage::url($servicePrice->image) }}" class="w-100" style="height: 310px; object-fit: cover;">
                     @else
                         <div class="d-flex align-items-center justify-content-center" style="height: 200px; background-color: #F5EAD8;">
                             <span class="text-muted small">Tidak ada gambar</span>

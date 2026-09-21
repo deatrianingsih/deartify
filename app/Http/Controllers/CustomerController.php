@@ -19,7 +19,9 @@ class CustomerController extends Controller
             });
         })->latest()->paginate(10)->withQueryString();
 
-        return view('admin.customers.index', compact('customers', 'search'));
+        $totalCustomers = User::where('role', 'customer')->count();
+
+        return view('admin.customers.index', compact('customers', 'search', 'totalCustomers'));
     }
 
     public function show(User $customer): View
