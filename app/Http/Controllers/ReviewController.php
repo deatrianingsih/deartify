@@ -16,8 +16,11 @@ class ReviewController extends Controller
      */
     public function index(): View
     {
-        // Semua orang (customer & admin) boleh lihat daftar review
-        $reviews =Review::with(['user', 'order.servicePrice'])->latest()->paginate(10);
+        $user = auth()->user();
+
+        $reviews = $user->isAdmin()
+            ? Review::with(['user', 'order.servicePrice'])->latest()->paginate(10)
+            : Review::where('user_id', $user->id)->with(['user', 'order.servicePrice'])->latest()->paginate(10);
 
         return view('reviews.index', compact('reviews'));
     }

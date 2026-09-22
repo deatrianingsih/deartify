@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="mb-4">
-    <h4 class="fw-semibold mb-1"><i class="bi bi-star-fill me-2" style="color: #8B6F5B;"></i>Ulasan Pelanggan</h4>
-    <p class="text-muted small mb-0">Lihat apa yang pelanggan katakan tentang layanan kamu</p>
+    <h4 class="fw-semibold mb-1"><i class="bi bi-star-fill me-2" style="color: #8B6F5B;"></i>{{ auth()->user()->isAdmin() ? 'Ulasan Pelanggan' : 'Ulasan Saya' }}</h4>
+    <p class="text-muted small mb-0">{{ auth()->user()->isAdmin() ? 'Lihat apa yang pelanggan katakan tentang layanan kamu' : 'Riwayat ulasan yang sudah kamu berikan' }}</p>
 </div>
 
 <div class="card border-0 shadow-sm" style="border-radius: 16px;">
