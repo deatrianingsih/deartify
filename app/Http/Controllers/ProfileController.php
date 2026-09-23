@@ -29,6 +29,7 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users,email,' . $user->id,
             'password' => ['nullable', 'string', 'max:20'],
+            'phone' => ['required', 'string', 'max:20'],
             'address' => ['nullable', 'string'],
         ]);
 
