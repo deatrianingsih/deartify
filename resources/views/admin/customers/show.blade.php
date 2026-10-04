@@ -22,7 +22,7 @@
         </tr>
         </thead>
         <tbody>
-            @forelse ($customer->order as $order)
+            @forelse ($customer->orders as $order)
                 <tr>
                     <td class="px-4 py-3">{{ $order->servicePrice->name }}</td>
                     <td class="px-4 py-3">

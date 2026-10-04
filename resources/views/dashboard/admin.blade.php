@@ -1,16 +1,22 @@
 @extends('layouts.dashboard')
 
+@php
+    $bulanIndo = [1=>'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    $monthParts = explode('-', $month);
+    $monthLabel = $bulanIndo[(int) $monthParts[1]] . ' ' . $monthParts[0];
+@endphp
+
 @section('content')
 <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-2">
     <div>
         <h4 class="fw-semibold mb-1"><i class="bi bi-bar-chart-fill me-2" style="color: #8B6F5B;"></i>Laporan & Grafik</h4>
         <p class="text-muted small mb-0">Ringkasan data penjualan dan aktivitas aplikasi</p>
     </div>
-    <form method="GET" class="d-flex gap-2">
-        <input type="month" name="month" value="{{ $month }}" class="form-control form-control-sm" onchange="this.form.submit()">
-        <button type="submit" class="btn btn-sm text-white d-flex align-items-center gap-1" style="background-color: #8B6F5B;">
-            <i class="bi bi-funnel"></i> Filter
-        </button>
+    <form method="GET" action="{{ route('home') }}" class="d-flex align-items-center gap-2">
+        <label for="month" class="small text-muted mb-0">Lihat data bulan:</label>
+        <input type="month" id="month" name="month" value="{{ $month }}"
+               class="form-control form-control-sm" style="width: 170px;"
+               onchange="this.form.submit()" max="{{ now()->format('Y-m') }}">
     </form>
 </div>
 
@@ -21,7 +27,7 @@
                 <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; background-color: #EDDECA; color: #8B6F5B;">
                     <i class="bi bi-wallet2"></i>
                 </div>
-                <span class="text-muted small">Total Pendapatan</span>
+                <span class="text-muted small">Total Pendapatan &mdash; {{ $monthLabel }}</span>
             </div>
             <div class="fs-4 fw-semibold">Rp{{ number_format($totalRevenue, 0, ',', '.') }}</div>
             <div class="small {{ $revenueChange >= 0 ? 'text-success' : 'text-danger' }}">

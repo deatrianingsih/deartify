@@ -28,6 +28,7 @@ class ServicePriceController extends Controller
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'image' => ['nullable', 'image', 'max:2048'],
+            'badge' => ['nullable', 'string', 'in:Populer,Terlaris,Paling Dicari,Favorit'],
         ]);
 
         if ($request->hasFile('image')) {
@@ -51,6 +52,7 @@ class ServicePriceController extends Controller
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'image' => ['nullable', 'image', 'max:2048'],
+            'badge' => ['nullable', 'string', 'in:Populer,Terlaris,Paling Dicari,Favorit'],
         ]);
 
         if ($request->hasFile('image')) {

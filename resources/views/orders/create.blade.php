@@ -12,7 +12,7 @@
             <select name="service_price_id" class="form-select @error('service_price_id') is-invalid @enderror">
                 <option value="">-- Pilih Jasa --</option>
                 @foreach ($servicePrices as $sp)
-                    <option value="{{ $sp->id }}" @selected(old('service_price_id') == $sp->id)>
+                    <option value="{{ $sp->id }}" @selected(old('service_price_id', $selectedServiceId ?? null) == $sp->id)>
                         {{ $sp->name }} — Rp{{ number_format($sp->price, 0, ',', '.') }}
                     </option>
                 @endforeach

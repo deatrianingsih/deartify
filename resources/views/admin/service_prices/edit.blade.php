@@ -44,6 +44,19 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+            <label class="form-label">Label Badge</label>
+            <select name="badge" class="form-select @error('badge') is-invalid @enderror">
+                <option value="">-- Tanpa Label --</option>
+                @foreach (['Populer', 'Paling Dicari', 'Terlaris', 'Favorit'] as $badgeOption)
+                    <option value="{{ $badgeOption }}" @selected(old('badge', $servicePrice->badge) == $badgeOption)>{{ $badgeOption }}</option>
+                @endforeach
+            </select>
+            @error('badge')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
         <button type="submit" class="btn text-white" style="background-color: #8B6F5B;">Update</button>
         <a href="{{ route('service_prices.index') }}" class="btn btn-outline-secondary">Batal</a>
     </form>

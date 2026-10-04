@@ -13,12 +13,9 @@
 @endif
 
 <div class="row g-3">
-    @php
-        $badges = ['Populer', 'Paling Dicari', 'Terlaris', 'Favorit'];
-    @endphp
     @forelse ($servicePrices as $servicePrice)
         <div class="col-md-4 col-lg-3">
-            <div class="h-100" style="border-radius: 16px; overflow: hidden; background-color: #FCF5EC;">
+            <div class="h-100" style="border-radius: 16px; overflow: hidden; background-color: #FFFFFF; box-shadow: 0 4px 14px rgba(74, 59, 50, 0.12); border: 1px solid rgba(139, 111, 91, 0.12);">
                 <div class="position-relative">
                     @if ($servicePrice->image)
                         <img src="{{ Storage::url($servicePrice->image) }}" class="w-100" style="height: 310px; object-fit: cover;">
@@ -27,9 +24,11 @@
                             <span class="text-muted small">Tidak ada gambar</span>
                         </div>
                     @endif
-                    <span class="position-absolute top-0 end-0 m-2 badge" style="background-color: #FCF5EC; color: #6B4F3F; font-weight: 500;">
-                        ★ {{ $badges[$loop->index % count($badges)] }}
-                    </span>
+                    @if ($servicePrice->badge)
+                        <span class="position-absolute top-0 end-0 m-2 badge" style="background-color: #FCF5EC; color: #6B4F3F; font-weight: 500;">
+                            ★ {{ $servicePrice->badge }}
+                        </span>
+                    @endif
                 </div>
                 <div class="p-3">
                     <span class="badge mb-2" style="background-color: #EDDECA; color: #6B4F3F; font-weight: 500;">{{ $servicePrice->name }}</span>
@@ -39,11 +38,11 @@
 
                     @if (auth()->user()->isAdmin())
                         <div class="d-flex gap-2">
-                            <a href="{{ route('service_prices.edit', $servicePrice) }}" class="btn btn-sm btn-outline-secondary flex-fill">Edit</a>
+                            <a href="{{ route('service_prices.edit', $servicePrice) }}" class="btn btn-sm text-white flex-fill" style="background-color: #8B6F5B;">Edit</a>
                             <form action="{{ route('service_prices.destroy', $servicePrice) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
+                                <button type="submit" class="btn btn-sm text-white" style="background-color: #B5543F;">Hapus</button>
                             </form>
                         </div>
                     @else

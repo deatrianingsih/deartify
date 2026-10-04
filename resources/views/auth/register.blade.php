@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-5 col-xl-4">
             <div class="card shadow-sm border-0" style="border-radius: 20px;">
                 <div class="card-body p-4">
                     <h4 class="fw-semibold mb-1">Buat Akun Baru</h4>
@@ -38,15 +38,25 @@
 
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            @enderror
+                            <div class="input-group">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <button class="btn" type="button" style="background-color: #EDDECA; border: 1px solid #ced4da; color: #6B4F3F;" onclick="togglePassword('password', this)" tabindex="-1">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                @error('password')
+                                    <span class="invalid-feedback d-block" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="password-confirm" class="form-label">Konfirmasi Password</label>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <div class="input-group">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <button class="btn" type="button" style="background-color: #EDDECA; border: 1px solid #ced4da; color: #6B4F3F;" onclick="togglePassword('password-confirm', this)" tabindex="-1">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn w-100 text-white" style="background-color: #8B6F5B;">
@@ -63,4 +73,20 @@
         </div>
     </div>
 </div>
+
+<script>
+function togglePassword(fieldId, btn) {
+    const input = document.getElementById(fieldId);
+    const icon = btn.querySelector('i');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    }
+}
+</script>
 @endsection

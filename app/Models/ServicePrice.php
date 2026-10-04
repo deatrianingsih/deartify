@@ -15,6 +15,7 @@ class ServicePrice extends Model
         'description',
         'image',
         'price',
+        'badge',
     ];
 
     protected function casts(): array
