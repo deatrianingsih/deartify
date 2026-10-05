@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\ServicePrice;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -62,11 +63,8 @@ if ($user->isAdmin()) {
 }
 
         return view('dashboard.customer', [
-            'totalMyOrders' => Order::where('user_id', $user->id)->count(),
-            'inProgressOrders' => Order::where('user_id', $user->id)->where('status', 'in_progress')->count(),
-            'completedOrders' => Order::where('user_id', $user->id)->where('status', 'completed')->count(),
-            'avgRating' => \App\Models\Review::whereHas('order', fn ($q) => $q->where('user_id', $user->id))->avg('rating'),
-            'myOrders' => Order::where('user_id', $user->id)->with('servicePrice')->latest()->take(5)->get(),
+            'latestOrder' => Order::where('user_id', $user->id)->with('servicePrice')->latest()->first(),
+            'services' => ServicePrice::orderBy('id')->take(4)->get(),
         ]);
     }
 }

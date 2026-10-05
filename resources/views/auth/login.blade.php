@@ -9,6 +9,10 @@
                     <h4 class="fw-semibold mb-1">Selamat Datang!</h4>
                     <p class="text-muted small mb-4">Silakan login untuk melanjutkan</p>
 
+                    @if (session('success'))
+                        <div class="alert alert-success small" role="alert">{{ session('success') }}</div>
+                    @endif
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

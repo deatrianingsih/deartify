@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="id">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,75 +7,59 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>DeArtify</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=caveat:500,700|nunito:400,600,700,800" rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @include('layouts.brand')
+    <style>
+        body { font-family: 'Nunito', sans-serif; }
+        .auth-nav { background: #fff; box-shadow: 0 2px 12px rgba(74, 59, 50, .08); }
+        .auth-nav-inner { max-width: 1320px; margin: 0 auto; padding: 0 1.5rem; height: 72px; display: flex; align-items: center; justify-content: space-between; }
+        .auth-nav .nav-text { color: var(--c-text); font-weight: 600; text-decoration: none; }
+        .auth-nav .nav-text:hover { color: var(--c-primary); }
+        .auth-main { min-height: calc(100vh - 72px); display: flex; align-items: center; padding: 2rem 0; }
+        .auth-main > .container { width: 100%; }
+        .form-control:focus { border-color: var(--c-mid); box-shadow: 0 0 0 .2rem rgba(139, 111, 91, .2); }
+        .form-check-input:checked { background-color: var(--c-primary); border-color: var(--c-primary); }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+        <nav class="auth-nav">
+            <div class="auth-nav-inner">
+                <a href="{{ url('/') }}" class="brand">
+                    <i class="bi bi-palette-fill"></i><span>DeArtify</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                <div class="d-flex align-items-center gap-3">
+                    @guest
+                        @if (Route::has('login'))
+                            <a class="nav-text" href="{{ route('login') }}">Masuk</a>
+                        @endif
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                        @if (Route::has('register'))
+                            <a class="btn-brand text-decoration-none" href="{{ route('register') }}">Daftar</a>
+                        @endif
+                    @else
+                        <span class="nav-text d-none d-sm-inline">{{ Auth::user()->name }}</span>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn-soft">Logout</button>
+                        </form>
+                    @endguest
                 </div>
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="auth-main">
             @yield('content')
         </main>
     </div>

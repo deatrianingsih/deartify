@@ -7,9 +7,17 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ServicePriceController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileController;
+use App\Models\ServicePrice;
 
 Route::get('/', function () {
-    return view('welcome');
+    // Sudah login -> langsung ke dashboard sesuai perannya
+    if (auth()->check()) {
+        return redirect()->route('home');
+    }
+
+    return view('welcome', [
+        'services' => ServicePrice::orderBy('id')->take(4)->get(),
+    ]);
 });
 
 Auth::routes();
