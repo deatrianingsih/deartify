@@ -112,6 +112,6 @@
 
 <div class="d-flex justify-content-between align-items-center mt-3">
     <span class="small text-muted">Menampilkan {{ $orders->count() }} dari {{ $orders->total() }} pesanan</span>
-    {{ $orders->links() }}
+    {{ $orders->links('pagination::bootstrap-5') }}
 </div>
 @endsection

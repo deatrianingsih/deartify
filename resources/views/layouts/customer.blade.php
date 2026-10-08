@@ -16,7 +16,7 @@
         :root { --cx-nav-h: 72px; }
 
         .cx-nav { position: sticky; top: 0; z-index: 1030; background: #fff; box-shadow: 0 2px 12px rgba(74, 59, 50, .08); }
-        .cx-nav-inner { max-width: 1320px; margin: 0 auto; padding: 0 1.5rem; height: var(--cx-nav-h); display: flex; align-items: center; gap: 2rem; }
+        .cx-nav-inner { max-width: none; margin: 0 auto; padding: 0 2.5rem; height: var(--cx-nav-h); display: flex; align-items: center; gap: 2rem; }
         .cx-nav .brand { display: flex; align-items: center; gap: .5rem; margin: 0; padding: 0; line-height: 1; }
 
         /* Tinggi dibuat eksplisit (bukan persen) supaya menu pasti satu garis tengah dengan logo */
@@ -33,10 +33,10 @@
         .cx-collapse form { margin: 0; display: flex; align-items: center; }
         .cx-toggle { display: none; margin-left: auto; border: 0; background: var(--c-tint); color: var(--c-dark); width: 42px; height: 42px; border-radius: 12px; font-size: 1.5rem; align-items: center; justify-content: center; }
 
-        .cx-main { max-width: 1320px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
+        .cx-main { max-width: none; margin: 0 auto; padding: 1.75rem 2.5rem 3rem; }
 
         @media (max-width: 991.98px) {
-            .cx-nav-inner { flex-wrap: wrap; height: auto; min-height: 64px; padding-top: .6rem; padding-bottom: .6rem; gap: .5rem; }
+            .cx-nav-inner { flex-wrap: wrap; height: auto; min-height: 64px; padding: .6rem 1rem; gap: .5rem; }
             .cx-toggle { display: inline-flex; }
             .cx-collapse { display: none; flex-direction: column; align-items: stretch; width: 100%; height: auto; padding: .5rem 0 .25rem; }
             .cx-collapse.open { display: flex; }

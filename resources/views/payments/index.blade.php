@@ -63,6 +63,6 @@
 
 <div class="d-flex justify-content-between align-items-center mt-3">
     <span class="small text-muted">Menampilkan {{ $payments->count() }} - {{ $payments->total() }} data</span>
-    {{ $payments->links() }}
+    {{ $payments->links('pagination::bootstrap-5') }}
 </div>
 @endsection

@@ -41,7 +41,7 @@
                 <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; background-color: #EDDECA; color: #8B6F5B;">
                     <i class="bi bi-receipt"></i>
                 </div>
-                <span class="text-muted small">Total Transaksi</span>
+                <span class="text-muted small">Total Pesanan Masuk</span>
             </div>
             <div class="fs-4 fw-semibold">{{ $totalTransactions }}</div>
             <div class="small {{ $transactionChange >= 0 ? 'text-success' : 'text-danger' }}">
