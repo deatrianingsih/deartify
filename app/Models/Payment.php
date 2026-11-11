@@ -17,6 +17,8 @@ class Payment extends Model
         'method',
         'status',
         'received_at',
+        'proof_path',
+        'proof_uploaded_at',
     ];
 
     protected function casts(): array
@@ -24,6 +26,7 @@ class Payment extends Model
         return [
             'amount' => 'decimal:2',
             'received_at' => 'datetime',
+            'proof_uploaded_at' => 'datetime',
         ];
     }
 
@@ -35,5 +38,18 @@ class Payment extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /** Pembayaran lewat e-wallet/QR = butuh bukti transfer. */
+    public function isEwallet(): bool
+    {
+        return $this->method !== 'cod';
+    }
+
+    public function methodLabel(): string
+    {
+        return $this->method === 'cod'
+            ? 'COD'
+            : config("payment.wallets.{$this->method}.label", strtoupper($this->method));
     }
 }

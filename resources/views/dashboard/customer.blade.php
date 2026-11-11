@@ -5,13 +5,12 @@
     .dash-panel { background: #fff; border-radius: 20px; box-shadow: var(--c-shadow); padding: 1.1rem; }
 
     /* Hero */
-    .hero { position: relative; overflow: hidden; border-radius: 18px; padding: 2.2rem; min-height: 290px; display: flex; align-items: center; background: linear-gradient(120deg, #F5EAD8 0%, #F8EFE2 55%, #EDDECA 100%); }
+    .hero { position: relative; overflow: hidden; border-radius: 18px; padding: 2.2rem; min-height: 340px; display: flex; align-items: center; background: linear-gradient(90deg, rgba(248, 238, 226, .6) 0%, rgba(248, 238, 226, 0) 58%), url('{{ asset('images/welcome.png') }}') 85% 60% / cover no-repeat #F1DFC9; }
     .hero-copy { position: relative; z-index: 2; max-width: 52%; }
     .hero h1 { font-family: 'Caveat', cursive; font-size: 3.5rem; font-weight: 700; color: var(--c-dark); line-height: 1; margin: 0 0 .3rem; }
     .hero h2 { font-family: 'Caveat', cursive; font-size: 2.1rem; font-weight: 500; color: var(--c-text); margin: 0 0 .8rem; }
     .hero h2 b { color: var(--c-primary); font-weight: 700; }
     .hero p { color: #7A6A5E; margin-bottom: 1.3rem; max-width: 420px; }
-    .hero-art { position: absolute; right: .75rem; top: 50%; transform: translateY(-50%); height: 115%; max-height: 330px; width: auto; z-index: 1; }
 
     /* Layanan Kami */
     .sec-head { display: flex; justify-content: space-between; align-items: center; margin: 1.7rem .25rem 1rem; }
@@ -59,6 +58,24 @@
     .quick small { color: #9A8B80; }
     .quick .bi-chevron-right { margin-left: auto; color: #B5A394; }
 
+    /* Menu Cepat sebagai dropdown */
+    .quick-drop summary { list-style: none; cursor: pointer; margin: 0; user-select: none; }
+    .quick-drop summary::-webkit-details-marker { display: none; }
+    .quick-drop summary.side-title { margin-bottom: 0; }
+    .quick-drop[open] summary.side-title { margin-bottom: 1rem; }
+    .quick-drop .side-title .drop-arrow { margin-left: auto; font-size: 1rem; color: var(--c-dark); transition: transform .2s; }
+    .quick-drop[open] .side-title .drop-arrow { transform: rotate(180deg); }
+    .quick-drop summary:focus-visible { outline: 3px solid var(--c-mid); outline-offset: 4px; border-radius: 8px; }
+
+    /* Menu Cepat: kotak ikon */
+    .qgrid { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+    .qt { display: flex; flex-direction: column; align-items: flex-start; gap: .1rem; padding: .9rem; border-radius: 16px; background: #FBF5EC; border: 1px solid var(--c-line, #EFE3D3); text-decoration: none; color: var(--c-dark); transition: transform .2s, box-shadow .2s, background .2s; }
+    .qt:hover { transform: translateY(-3px); background: #fff; box-shadow: 0 10px 22px rgba(74, 59, 50, .12); color: var(--c-dark); }
+    .qt .qi { width: 42px; height: 42px; border-radius: 13px; background: linear-gradient(135deg, #A68570, #6B4F3F); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: .5rem; box-shadow: 0 6px 12px rgba(94, 67, 52, .25); }
+    .qt.g .qi { background: linear-gradient(135deg, #EDB43A, #C48410); box-shadow: 0 6px 12px rgba(196, 132, 16, .28); }
+    .qt b { font-size: .95rem; }
+    .qt small { color: #9A8B80; font-size: .75rem; }
+
     .thanks { background: #EDDECA; border-radius: 16px; padding: 1.4rem; display: flex; align-items: center; gap: 1rem; color: var(--c-dark); }
     .thanks .font-hand { font-size: 1.75rem; line-height: 1.1; flex: 1; }
     .thanks .deco { font-size: 1.6rem; color: var(--c-primary); opacity: .8; }
@@ -67,7 +84,7 @@
         .hero { padding: 1.5rem; }
         .hero-copy { max-width: 100%; }
         .hero h1 { font-size: 2.9rem; }
-        .hero-art { opacity: .15; right: -40px; }
+        .hero { min-height: 300px; background: linear-gradient(rgba(248, 238, 226, .8), rgba(248, 238, 226, .8)), url('{{ asset('images/welcome.png') }}') 80% 60% / cover no-repeat #F1DFC9; }
     }
 </style>
 @endpush
@@ -96,8 +113,6 @@
                         Lihat Layanan <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-
-                @include('layouts.sketch-art', ['class' => 'hero-art'])
             </div>
 
             <div class="sec-head">
@@ -181,26 +196,22 @@
 
             <div class="side-card">
                 <h6 class="side-title"><i class="bi bi-lightning-charge"></i>Menu Cepat</h6>
-                <div class="quick">
-                    <a href="{{ route('service_prices.index') }}">
-                        <span class="quick-ico"><i class="bi bi-bag"></i></span>
-                        <span><b>Layanan & Harga</b><small>Lihat semua jasa yang tersedia</small></span>
-                        <i class="bi bi-chevron-right"></i>
+                <div class="qgrid">
+                    <a href="{{ route('service_prices.index') }}" class="qt">
+                        <span class="qi"><i class="bi bi-palette"></i></span>
+                        <b>Layanan</b><small>Jasa gambar</small>
                     </a>
-                    <a href="{{ route('orders.index') }}">
-                        <span class="quick-ico"><i class="bi bi-card-checklist"></i></span>
-                        <span><b>Pesanan Saya</b><small>Cek status pesanan kamu</small></span>
-                        <i class="bi bi-chevron-right"></i>
+                    <a href="{{ route('service_prices.index') }}#produk" class="qt g">
+                        <span class="qi"><i class="bi bi-bag-heart"></i></span>
+                        <b>Produk</b><small>Koleksi kami</small>
                     </a>
-                    <a href="{{ route('reviews.index') }}">
-                        <span class="quick-ico gold"><i class="bi bi-star-fill"></i></span>
-                        <span><b>Ulasan Saya</b><small>Lihat dan berikan ulasan</small></span>
-                        <i class="bi bi-chevron-right"></i>
+                    <a href="{{ route('orders.index') }}" class="qt">
+                        <span class="qi"><i class="bi bi-receipt"></i></span>
+                        <b>Pesanan</b><small>Cek status</small>
                     </a>
-                    <a href="{{ route('profile.show') }}">
-                        <span class="quick-ico"><i class="bi bi-person"></i></span>
-                        <span><b>Profil</b><small>Atur data akun kamu</small></span>
-                        <i class="bi bi-chevron-right"></i>
+                    <a href="{{ route('reviews.index') }}" class="qt g">
+                        <span class="qi"><i class="bi bi-star-fill"></i></span>
+                        <b>Ulasan</b><small>Beri penilaian</small>
                     </a>
                 </div>
             </div>

@@ -3,6 +3,7 @@
         ['label' => 'Dashboard', 'route' => 'home', 'icon' => 'bi-house'],
         ['label' => 'Data Customer', 'route' => 'customers.index', 'icon' => 'bi-people'],
         ['label' => 'Harga Jasa', 'route' => 'service_prices.index', 'icon' => 'bi-palette'],
+        ['label' => 'Produk', 'route' => 'admin.products.index', 'icon' => 'bi-pencil'],
         ['label' => 'Pesanan', 'route' => 'orders.index', 'icon' => 'bi-bag'],
         ['label' => 'Pembayaran', 'route' => 'payments.index', 'icon' => 'bi-cash-coin'],
         ['label' => 'Profil', 'route' => 'profile.show', 'icon' => 'bi-person'],
