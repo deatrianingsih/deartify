@@ -40,7 +40,6 @@ class Payment extends Model
         return $this->belongsTo(User::class);
     }
 
-    /** Pembayaran lewat e-wallet/QR = butuh bukti transfer. */
     public function isEwallet(): bool
     {
         return $this->method !== 'cod';

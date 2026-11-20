@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/keranjang/tambah', [CartController::class, 'add'])->name('cart.add');
     Route::patch('/keranjang/{key}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/keranjang/{key}', [CartController::class, 'remove'])->name('cart.remove');
+    // Kalau alamat item keranjang dibuka langsung (refresh / tombol Back), arahkan balik ke keranjang
+    Route::get('/keranjang/{key}', fn () => redirect()->route('cart.index'));
     Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
     Route::post('/checkout', [CartController::class, 'store'])->name('cart.store');
 

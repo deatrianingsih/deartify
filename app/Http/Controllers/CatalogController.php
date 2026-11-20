@@ -8,9 +8,6 @@ use Illuminate\View\View;
 
 class CatalogController extends Controller
 {
-    /**
-     * Halaman Layanan & Harga untuk tamu (jasa gambar + produk).
-     */
     public function index(): View
     {
         return view('public.layanan', [

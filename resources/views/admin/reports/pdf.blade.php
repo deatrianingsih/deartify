@@ -16,60 +16,313 @@
         $n = max(1, count($periods));
     @endphp
     <style>
-        @page { margin: 30px 34px; }
-        * { box-sizing: border-box; }
-        body { font-family: DejaVu Sans, sans-serif; font-size: 10px; color: #4A3B32; margin: 0; }
-        .muted { color: #85766B; }
-        .r { text-align: right; } .c { text-align: center; }
-        table { width: 100%; border-collapse: collapse; }
+       
+/* PAGE & GLOBAL */
+@page {
+    margin: 30px 34px;
+}
 
-        .kop { border-bottom: 3px solid #5E4334; padding-bottom: 10px; margin-bottom: 4px; }
-        .kop td { vertical-align: middle; }
-        .brand { font-size: 22px; font-weight: bold; color: #5E4334; }
-        .brand small { display: block; font-size: 9px; font-weight: normal; color: #85766B; margin-top: 2px; }
-        .doc-title { text-align: right; }
-        .doc-title b { display: block; font-size: 15px; color: #5E4334; letter-spacing: .5px; }
-        .line2 { border-bottom: 1px solid #C9AF9A; margin-bottom: 14px; }
-        .meta td { padding: 2px 0; font-size: 10px; }
-        .meta td:first-child { width: 90px; color: #85766B; }
+* {
+    box-sizing: border-box;
+}
 
-        h2 { font-size: 11px; margin: 18px 0 7px; color: #fff; background: #8B6F5B; padding: 5px 9px; letter-spacing: .4px; }
+body {
+    font-family: DejaVu Sans, sans-serif;
+    font-size: 10px;
+    color: #4A3B32;
+    margin: 0;
+}
 
-        .cards td { width: 25%; padding: 0 5px 0 0; border: 0; }
-        .cards td:last-child { padding-right: 0; }
-        .card { border: 1px solid #E5D2B8; border-top: 3px solid #8B6F5B; background: #FBF3E8; padding: 8px 10px; }
-        .card .l { color: #85766B; font-size: 9px; }
-        .card .v { font-size: 14px; font-weight: bold; color: #4A3B32; margin-top: 3px; }
-        .card.hi { background: #5E4334; border-color: #5E4334; border-top-color: #E0A21B; }
-        .card.hi .l { color: #E9D6BE; } .card.hi .v { color: #fff; }
+.muted {
+    color: #85766B;
+}
 
-        .chart { border: 1px solid #E5D2B8; background: #FFFDF9; padding: 10px 10px 6px; }
-        .chart table { table-layout: fixed; }
-        .chart td { padding: 0 1px; vertical-align: bottom; text-align: center; border: 0; }
-        .bar { background: #8B6F5B; margin: 0 auto; width: 100%; }
-        .bar.zero { background: #EADCC8; }
-        .lbl { font-size: 7px; color: #85766B; padding-top: 3px !important; }
-        .val { font-size: 7px; color: #5E4334; font-weight: bold; }
-        .axis { border-top: 1px solid #C9AF9A; }
+.r {
+    text-align: right;
+}
 
-        .tbl th { background: #EDDECA; color: #4A3B32; text-align: left; padding: 6px 7px; font-size: 9px; border-bottom: 2px solid #C9AF9A; }
-        .tbl td { padding: 5px 7px; border-bottom: 1px solid #EFE3D3; }
-        .tbl tr:nth-child(even) td { background: #FDFAF5; }
-        .tbl tfoot td { background: #F5EAD8; font-weight: bold; border-top: 2px solid #8B6F5B; font-size: 11px; }
-        .mini-bg { background: #F1E6D6; height: 7px; } .mini { background: #8B6F5B; height: 7px; }
-        .stat td { border: 1px solid #E5D2B8; padding: 6px 8px; text-align: center; background: #FBF3E8; }
-        .stat b { display: block; font-size: 13px; color: #5E4334; }
+.c {
+    text-align: center;
+}
 
-        .sign { margin-top: 28px; width: 100%; }
-        .sign td { width: 50%; vertical-align: top; }
-        .sign .box { width: 190px; text-align: center; margin-left: auto; }
-        .sign .gap { height: 55px; }
-        .note { margin-top: 16px; font-size: 8.5px; color: #85766B; border-top: 1px dashed #C9AF9A; padding-top: 6px; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-        .toolbar { background: #5E4334; color: #fff; padding: 10px 16px; font-family: sans-serif; font-size: 13px; margin: -30px -34px 18px; }
-        .toolbar button { margin-left: 10px; padding: 5px 14px; border: 0; border-radius: 6px; background: #FFF3E0; color: #5E4334; font-weight: bold; cursor: pointer; }
-        @media print { .toolbar { display: none; } * { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
-        @media screen { body { max-width: 900px; margin: 0 auto; padding: 0 34px 40px; } }
+/* HEADER / KOP */
+.kop {
+    border-bottom: 3px solid #5E4334;
+    padding-bottom: 10px;
+    margin-bottom: 4px;
+}
+
+.kop td {
+    vertical-align: middle;
+}
+
+.brand {
+    font-size: 22px;
+    font-weight: bold;
+    color: #5E4334;
+}
+
+.brand small {
+    display: block;
+    font-size: 9px;
+    font-weight: normal;
+    color: #85766B;
+    margin-top: 2px;
+}
+
+.doc-title {
+    text-align: right;
+}
+
+.doc-title b {
+    display: block;
+    font-size: 15px;
+    color: #5E4334;
+    letter-spacing: .5px;
+}
+
+.line2 {
+    border-bottom: 1px solid #C9AF9A;
+    margin-bottom: 14px;
+}
+
+/* DOCUMENT META */
+.meta td {
+    padding: 2px 0;
+    font-size: 10px;
+}
+
+.meta td:first-child {
+    width: 90px;
+    color: #85766B;
+}
+
+/* SECTION TITLE */
+h2 {
+    font-size: 11px;
+    margin: 18px 0 7px;
+    color: #fff;
+    background: #8B6F5B;
+    padding: 5px 9px;
+    letter-spacing: .4px;
+}
+
+/* SUMMARY CARDS */
+.cards td {
+    width: 25%;
+    padding: 0 5px 0 0;
+    border: 0;
+}
+
+.cards td:last-child {
+    padding-right: 0;
+}
+
+.card {
+    border: 1px solid #E5D2B8;
+    border-top: 3px solid #8B6F5B;
+    background: #FBF3E8;
+    padding: 8px 10px;
+}
+
+.card .l {
+    color: #85766B;
+    font-size: 9px;
+}
+
+.card .v {
+    font-size: 14px;
+    font-weight: bold;
+    color: #4A3B32;
+    margin-top: 3px;
+}
+
+.card.hi {
+    background: #5E4334;
+    border-color: #5E4334;
+    border-top-color: #E0A21B;
+}
+
+.card.hi .l {
+    color: #E9D6BE;
+}
+
+.card.hi .v {
+    color: #fff;
+}
+
+/* CHART */
+.chart {
+    border: 1px solid #E5D2B8;
+    background: #FFFDF9;
+    padding: 10px 10px 6px;
+}
+
+.chart table {
+    table-layout: fixed;
+}
+
+.chart td {
+    padding: 0 1px;
+    vertical-align: bottom;
+    text-align: center;
+    border: 0;
+}
+
+.bar {
+    background: #8B6F5B;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.bar.zero {
+    background: #EADCC8;
+}
+
+.lbl {
+    font-size: 7px;
+    color: #85766B;
+    padding-top: 3px !important;
+}
+
+.val {
+    font-size: 7px;
+    color: #5E4334;
+    font-weight: bold;
+}
+
+.axis {
+    border-top: 1px solid #C9AF9A;
+}
+
+/* DATA TABLE */
+.tbl th {
+    background: #EDDECA;
+    color: #4A3B32;
+    text-align: left;
+    padding: 6px 7px;
+    font-size: 9px;
+    border-bottom: 2px solid #C9AF9A;
+}
+
+.tbl td {
+    padding: 5px 7px;
+    border-bottom: 1px solid #EFE3D3;
+}
+
+.tbl tr:nth-child(even) td {
+    background: #FDFAF5;
+}
+
+.tbl tfoot td {
+    background: #F5EAD8;
+    font-weight: bold;
+    border-top: 2px solid #8B6F5B;
+    font-size: 11px;
+}
+
+/* MINI PROGRESS */
+.mini-bg {
+    background: #F1E6D6;
+    height: 7px;
+}
+
+.mini {
+    background: #8B6F5B;
+    height: 7px;
+}
+
+/* STATISTICS */
+.stat td {
+    border: 1px solid #E5D2B8;
+    padding: 6px 8px;
+    text-align: center;
+    background: #FBF3E8;
+}
+
+.stat b {
+    display: block;
+    font-size: 13px;
+    color: #5E4334;
+}
+
+/* SIGNATURE */
+.sign {
+    margin-top: 28px;
+    width: 100%;
+}
+
+.sign td {
+    width: 50%;
+    vertical-align: top;
+}
+
+.sign .box {
+    width: 190px;
+    text-align: center;
+    margin-left: auto;
+}
+
+.sign .gap {
+    height: 55px;
+}
+
+/* NOTE */
+.note {
+    margin-top: 16px;
+    font-size: 8.5px;
+    color: #85766B;
+    border-top: 1px dashed #C9AF9A;
+    padding-top: 6px;
+}
+
+/* TOOLBAR */
+.toolbar {
+    background: #5E4334;
+    color: #fff;
+    padding: 10px 16px;
+    font-family: sans-serif;
+    font-size: 13px;
+    margin: -30px -34px 18px;
+}
+
+.toolbar button {
+    margin-left: 10px;
+    padding: 5px 14px;
+    border: 0;
+    border-radius: 6px;
+    background: #FFF3E0;
+    color: #5E4334;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* PRINT */
+@media print {
+    .toolbar {
+        display: none;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* SCREEN */
+@media screen {
+    body {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 34px 40px;
+    }
+}
+
     </style>
 </head>
 <body>

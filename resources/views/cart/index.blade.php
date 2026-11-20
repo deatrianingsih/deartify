@@ -2,44 +2,277 @@
 
 @push('styles')
 <style>
-    .ct-wrap { max-width: 1100px; margin: 0 auto; }
-    .ct-head h3 { margin: 0 0 .2rem; font-weight: 800; color: var(--c-text, #4A3B32); display: flex; align-items: center; gap: .6rem; }
-    .ct-head h3 i { color: var(--c-primary, #8B6F5B); }
-    .ct-head p { color: #85766B; margin-bottom: 1.3rem; }
-    .ct-card { background: #fff; border: 1px solid var(--c-line, #EFE3D3); border-radius: 18px; box-shadow: 0 2px 12px rgba(74, 59, 50, .06); }
-    .ct-item { display: flex; gap: 1rem; align-items: center; padding: 1rem 1.2rem; border-bottom: 1px solid var(--c-line, #EFE3D3); }
-    .ct-item:last-child { border-bottom: 0; }
-    .ct-img { width: 84px; height: 84px; border-radius: 14px; background: var(--c-soft, #EDDECA); overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--c-mid, #C9AF9A); font-size: 1.6rem; }
-    .ct-img img { width: 100%; height: 100%; object-fit: cover; }
-    .ct-info { flex: 1; min-width: 0; }
-    .ct-type { display: inline-block; font-size: .7rem; font-weight: 800; padding: .15rem .6rem; border-radius: 999px; background: var(--c-tint, #F5EAD8); color: var(--c-dark, #5E4334); margin-bottom: .25rem; }
-    .ct-type.prd { background: #FDEBD0; color: #A8700C; }
-    .ct-info h6 { margin: 0 0 .15rem; font-weight: 800; font-size: 1.02rem; color: var(--c-text, #4A3B32); }
-    .ct-info small { color: #85766B; }
-    .ct-qty { display: inline-flex; align-items: center; border: 1.5px solid var(--c-line, #EFE3D3); border-radius: 12px; overflow: hidden; background: #fff; }
-    .ct-qty button { width: 34px; height: 36px; border: 0; background: var(--c-tint, #F5EAD8); color: var(--c-dark, #5E4334); font-weight: 800; }
-    .ct-qty button:hover { background: var(--c-soft, #EDDECA); }
-    .ct-qty input { width: 46px; height: 36px; border: 0; text-align: center; font-weight: 800; -moz-appearance: textfield; }
-    .ct-qty input::-webkit-outer-spin-button, .ct-qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-    .ct-qty input:focus { outline: none; }
-    .ct-sub { text-align: right; min-width: 120px; }
-    .ct-sub b { display: block; font-size: 1.05rem; color: var(--c-dark, #5E4334); }
-    .ct-del { border: 0; background: none; color: #B3402F; font-size: .82rem; font-weight: 700; padding: 0; margin-top: .3rem; }
-    .ct-del:hover { text-decoration: underline; }
-    .ct-sum { padding: 1.3rem; position: sticky; top: 90px; }
-    .ct-sum h5 { font-weight: 800; font-size: 1.05rem; margin-bottom: 1rem; color: var(--c-text, #4A3B32); }
-    .ct-row { display: flex; justify-content: space-between; margin-bottom: .6rem; color: #6F6258; font-size: .93rem; }
-    .ct-row.total { border-top: 1px dashed var(--c-line, #EFE3D3); padding-top: .8rem; margin-top: .8rem; font-weight: 800; color: var(--c-text, #4A3B32); font-size: 1.1rem; }
-    .ct-go { display: flex; align-items: center; justify-content: center; gap: .5rem; width: 100%; margin-top: 1rem; padding: .85rem 1rem; border-radius: 12px; background: var(--c-primary, #8B6F5B); color: #fff; font-weight: 800; text-decoration: none; }
-    .ct-go:hover { background: var(--c-dark, #5E4334); color: #fff; }
-    .ct-more { display: block; text-align: center; margin-top: .8rem; color: var(--c-primary, #8B6F5B); font-weight: 700; font-size: .9rem; text-decoration: none; }
-    .ct-empty { text-align: center; padding: 3rem 1rem; color: #85766B; }
-    .ct-empty i { font-size: 3.2rem; color: var(--c-mid, #C9AF9A); display: block; margin-bottom: .5rem; }
-    .ct-empty a { display: inline-flex; gap: .4rem; align-items: center; margin-top: 1rem; background: var(--c-primary, #8B6F5B); color: #fff; font-weight: 800; border-radius: 12px; padding: .7rem 1.4rem; text-decoration: none; }
-    @media (max-width: 575.98px) {
-        .ct-item { flex-wrap: wrap; }
-        .ct-sub { text-align: left; min-width: 0; margin-left: auto; }
+    .ct-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.ct-head h3 {
+    margin: 0 0 .2rem;
+    font-weight: 800;
+    color: var(--c-text, #4A3B32);
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.ct-head h3 i {
+    color: var(--c-primary, #8B6F5B);
+}
+
+.ct-head p {
+    color: #85766B;
+    margin-bottom: 1.3rem;
+}
+
+.ct-card {
+    background: #fff;
+    border: 1px solid var(--c-line, #EFE3D3);
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(74, 59, 50, .06);
+}
+
+.ct-item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--c-line, #EFE3D3);
+}
+
+.ct-item:last-child {
+    border-bottom: 0;
+}
+
+.ct-img {
+    width: 84px;
+    height: 84px;
+    border-radius: 14px;
+    background: var(--c-soft, #EDDECA);
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--c-mid, #C9AF9A);
+    font-size: 1.6rem;
+}
+
+.ct-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ct-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.ct-type {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 800;
+    padding: .15rem .6rem;
+    border-radius: 999px;
+    background: var(--c-tint, #F5EAD8);
+    color: var(--c-dark, #5E4334);
+    margin-bottom: .25rem;
+}
+
+.ct-type.prd {
+    background: #FDEBD0;
+    color: #A8700C;
+}
+
+.ct-info h6 {
+    margin: 0 0 .15rem;
+    font-weight: 800;
+    font-size: 1.02rem;
+    color: var(--c-text, #4A3B32);
+}
+
+.ct-info small {
+    color: #85766B;
+}
+
+.ct-qty {
+    display: inline-flex;
+    align-items: center;
+    border: 1.5px solid var(--c-line, #EFE3D3);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.ct-qty button {
+    width: 34px;
+    height: 36px;
+    border: 0;
+    background: var(--c-tint, #F5EAD8);
+    color: var(--c-dark, #5E4334);
+    font-weight: 800;
+}
+
+.ct-qty button:hover {
+    background: var(--c-soft, #EDDECA);
+}
+
+.ct-qty input {
+    width: 46px;
+    height: 36px;
+    border: 0;
+    text-align: center;
+    font-weight: 800;
+    -moz-appearance: textfield;
+}
+
+.ct-qty input::-webkit-outer-spin-button,
+.ct-qty input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.ct-qty input:focus {
+    outline: none;
+}
+
+.ct-qty .ct-qty-n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 46px;
+    height: 36px;
+    font-weight: 800;
+}
+
+.ct-qty button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.ct-sub {
+    text-align: right;
+    min-width: 120px;
+}
+
+.ct-sub b {
+    display: block;
+    font-size: 1.05rem;
+    color: var(--c-dark, #5E4334);
+}
+
+.ct-del {
+    border: 0;
+    background: none;
+    color: #B3402F;
+    font-size: .82rem;
+    font-weight: 700;
+    padding: 0;
+    margin-top: .3rem;
+}
+
+.ct-del:hover {
+    text-decoration: underline;
+}
+
+.ct-sum {
+    padding: 1.3rem;
+    position: sticky;
+    top: 90px;
+}
+
+.ct-sum h5 {
+    font-weight: 800;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    color: var(--c-text, #4A3B32);
+}
+
+.ct-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .6rem;
+    color: #6F6258;
+    font-size: .93rem;
+}
+
+.ct-row.total {
+    border-top: 1px dashed var(--c-line, #EFE3D3);
+    padding-top: .8rem;
+    margin-top: .8rem;
+    font-weight: 800;
+    color: var(--c-text, #4A3B32);
+    font-size: 1.1rem;
+}
+
+.ct-go {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    width: 100%;
+    margin-top: 1rem;
+    padding: .85rem 1rem;
+    border-radius: 12px;
+    background: var(--c-primary, #8B6F5B);
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.ct-go:hover {
+    background: var(--c-dark, #5E4334);
+    color: #fff;
+}
+
+.ct-more {
+    display: block;
+    text-align: center;
+    margin-top: .8rem;
+    color: var(--c-primary, #8B6F5B);
+    font-weight: 700;
+    font-size: .9rem;
+    text-decoration: none;
+}
+
+.ct-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #85766B;
+}
+
+.ct-empty i {
+    font-size: 3.2rem;
+    color: var(--c-mid, #C9AF9A);
+    display: block;
+    margin-bottom: .5rem;
+}
+
+.ct-empty a {
+    display: inline-flex;
+    gap: .4rem;
+    align-items: center;
+    margin-top: 1rem;
+    background: var(--c-primary, #8B6F5B);
+    color: #fff;
+    font-weight: 800;
+    border-radius: 12px;
+    padding: .7rem 1.4rem;
+    text-decoration: none;
+}
+
+@media (max-width: 575.98px) {
+    .ct-item {
+        flex-wrap: wrap;
     }
+
+    .ct-sub {
+        text-align: left;
+        min-width: 0;
+        margin-left: auto;
+    }
+}
 </style>
 @endpush
 
@@ -71,10 +304,13 @@
 
                             <form action="{{ route('cart.update', $line['key']) }}" method="POST" class="ct-qty-form">
                                 @csrf @method('PATCH')
+                                @php
+                                    $maxQty = $line['type'] === 'product' ? max(1, (int) $line['stock']) : 99;
+                                @endphp
                                 <div class="ct-qty">
-                                    <button type="button" data-d="-1" aria-label="Kurangi">&minus;</button>
-                                    <input type="number" name="qty" value="{{ $line['qty'] }}" min="1" max="{{ $line['type'] === 'product' ? max(1, $line['stock']) : 99 }}">
-                                    <button type="button" data-d="1" aria-label="Tambah">+</button>
+                                    <button type="submit" name="qty" value="{{ max(1, $line['qty'] - 1) }}" aria-label="Kurangi" @disabled($line['qty'] <= 1)>&minus;</button>
+                                    <b class="ct-qty-n">{{ $line['qty'] }}</b>
+                                    <button type="submit" name="qty" value="{{ min($maxQty, $line['qty'] + 1) }}" aria-label="Tambah" @disabled($line['qty'] >= $maxQty)>+</button>
                                 </div>
                             </form>
 
@@ -105,17 +341,4 @@
     @endif
 </div>
 
-<script>
-    document.querySelectorAll('.ct-qty-form').forEach(function (f) {
-        var input = f.querySelector('input');
-        f.querySelectorAll('button[data-d]').forEach(function (b) {
-            b.addEventListener('click', function () {
-                var v = (parseInt(input.value, 10) || 1) + parseInt(b.dataset.d, 10);
-                v = Math.min(Math.max(v, 1), parseInt(input.max, 10) || 99);
-                if (String(v) !== input.value) { input.value = v; f.submit(); }
-            });
-        });
-        input.addEventListener('change', function () { f.submit(); });
-    });
-</script>
 @endsection
